@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define DEBUG 1
-
 char clean[] = "\x48\x31\xed\x48\x31\xe4\x48\x31\xc0\x48\x31\xdb\x48\x31\xc9\x48\x31\xd2\x48\x31\xf6\x48\x31\xff\x4d\x31\xc0\x4d\x31\xc9\x4d\x31\xd2\x4d\x31\xdb\x4d\x31\xe4\x4d\x31\xed\x4d\x31\xf6\x4d\x31\xff";
 
 typedef struct challenge {
@@ -51,12 +49,6 @@ void shellcode_it(char* buf, unsigned int size)
    void (*shell)();
    memcpy(ptr, &chall, sizeof(challenge));
 
-   // Set an alarm
-   if (!DEBUG)
-   {
-	  alarm(5);
-   }
-
    shell = (void (*)()) ptr;
    shell();
 
@@ -89,6 +81,11 @@ void get_that_shellcode()
 int main(int argc, char** argv)
 {
    setvbuf(stdout, NULL, _IONBF, 0);
+
+   if (getenv("DEBUG") == NULL)
+   {
+	  alarm(5);
+   }
 
    say_hello();
    get_that_shellcode();
