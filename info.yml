@@ -21,7 +21,7 @@ authors:
   - adamd
 
 game_network_info:
-  host: speedrun-006.quals2016.oooverflow.io
+  host: speedrun-006.quals2019.oooverflow.io
   port: 31337
 
 
